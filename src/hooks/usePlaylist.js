@@ -65,24 +65,32 @@ const usePlaylist = () =>{
 
         if(!playlistId) return setError('inavalid id or url')
 
-       let newPlaylistInfo = findPlaylistInfoById(playlistId,'playlists')
+   try{
+    setLoading(true)
 
-       if(playlistType !== 'playlists'){
-        let playlist = findPlaylistInfoById(playlistId,playlistType)
-        if(!playlist){
-            setState({...state,playlistInfo:{...state.playlistInfo,[playlistType]:[newPlaylistInfo,...state.playlistInfo[playlistType]]}})
-        }
-       }
+    let newPlaylistInfo = findPlaylistInfoById(playlistId,'playlists')
 
-       if(!newPlaylistInfo){
-         newPlaylistInfo = await getPlaylist(playlistId)
-         setState(prev =>{
-            return {...prev, playlistInfo:{...prev.playlistInfo,playlists:[...prev.playlistInfo[playlistType],newPlaylistInfo]}  }
-        })
-
-
-
+    if(playlistType !== 'playlists'){
+     let playlist = findPlaylistInfoById(playlistId,playlistType)
+     if(!playlist){
+         setState({...state,playlistInfo:{...state.playlistInfo,[playlistType]:[newPlaylistInfo,...state.playlistInfo[playlistType]]}})
+     }
     }
+
+    if(!newPlaylistInfo){
+      newPlaylistInfo = await getPlaylist(playlistId)
+      setState(prev =>{
+         return {...prev, playlistInfo:{...prev.playlistInfo,playlists:[...prev.playlistInfo[playlistType],newPlaylistInfo]}  }
+     })
+
+
+
+ }
+ setLoading(false)
+   }catch(err){
+    setLoading(false)
+    setError(err.message)
+   }
 
     }
 
