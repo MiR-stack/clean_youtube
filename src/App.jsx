@@ -4,21 +4,21 @@ import usePlaylist from './hooks/usePlaylist'
 import Home from './pages/home'
 
 const url = 'https://www.youtube.com/playlist?list=PL9bw4S5ePsEGjT1n5VhWDBUHe5sDYos9L'
-const id = 'PL9bw4S5ePsEGjT1n5VhWDBUHe5sDYos9L'
+const id = "PL9bw4S5ePsEGjT1n5VhWDBUHe5sDYos9L"
+const id2 = "PLgH5QX0i9K3p06YY1fyReA2UK8mh_zsiY"
 
 const App  = () =>{
 
 
-  const {playlistInfo,playlistItems,addPlaylistInfo,addPlaylistItems,removePlaylist} = usePlaylist()
+  const {loading,error, playlistInfo,playlistItems,addPlaylistInfo,addPlaylistItems,removePlaylist,loadMoreItems} = usePlaylist()
 
 
-  console.log(playlistInfo, playlistItems)
 
 
   return <div>
     <Navbar handleId={addPlaylistInfo} />
     <GapRemover />
-    <Home />
+    <Home playlistInfo={playlistInfo} />
   </div>
 }
 

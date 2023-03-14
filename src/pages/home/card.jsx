@@ -1,9 +1,9 @@
 import { Card,CardActions,CardContent,CardMedia,Button, Typography } from "@mui/material"
 
-const Card = ({title,description,thumbnail,palylistId,channelTitle,addFavourite,addRecent})=>{
+const InfoCard = ({title,description,thumbnails,palylistId,channelTitle,addFavourite,addRecent})=>{
 
     return <Card >
-        <CardMedia component={'img'} alt={title} height='150px' image={thumbnail.url}>
+        <CardMedia component={'img'} alt={title} height='150px' image={thumbnails.url} />
             <CardContent>
                 <Typography gutterBottom variant='h5' component='div'>{title} </Typography>
                 <Typography variant='body2' color='text.secondary'>{description} </Typography>
@@ -12,8 +12,7 @@ const Card = ({title,description,thumbnail,palylistId,channelTitle,addFavourite,
                 <Button size='small'> play</Button>
                 <Button size='small'>add to favourite</Button>
             </CardActions>
-        </CardMedia>
     </Card>
 }
 
-export default Card
+export default InfoCard

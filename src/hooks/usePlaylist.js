@@ -33,9 +33,7 @@ const usePlaylist = () =>{
 
     useEffect(()=>{
         if(state.playlistInfo.playlists.length >0){
-            storage.setData(state)
-            console.log('reached');
-        }
+            storage.setData(state)        }
     },[state])
 /**
  * find playlist from playlistInfo by id and playlistType
@@ -51,7 +49,7 @@ const usePlaylist = () =>{
  * @returns 
  */
     const findPlaylistItemById = (playlistId) =>{
-        return state.playlistItems.find(playlist => playlist.playlistId = playlistId)
+        return state.playlistItems.find(playlist => playlist.playlistId === playlistId)
     }
 
 
@@ -97,13 +95,16 @@ const usePlaylist = () =>{
 // adding playlist item
     const addPlaylistItems = async (playlistId) =>{
        try{
-        setLoading(true)
         let playlistItem= findPlaylistItemById(playlistId)
 
+
+        console.log(playlistItem)
+
        if(!playlistItem){
+        setLoading(true)
         playlistItem = await getPlaylistItems(playlistId)
         playlistItem.playlistId = playlistId
-        setState({...state,playlistItems:[...state.playlistItems,playlistItem]})
+        setState({...state,playlistItems:[playlistItem,...state.playlistItems]})
         setLoading(false)
        }
        }catch(err){
@@ -113,24 +114,32 @@ const usePlaylist = () =>{
 
     }
 
-
+/**
+ * 
+ * @param {Stirng} playlistId 
+ * TODO:fix bug
+ */
     const loadMoreItems =async (playlistId)=>{
         try{
             setLoading(true)
-          const newState = getImmutableData(state)
-            let oldItems = newState.playlistItems.find(item => item.playlistId === playlistId)
-            const  playlistItem = await getPlaylistItems(playlistId,oldItems.nextPageToken)  
-            oldItems = {
-                ...oldItems,
+          const oldState = getImmutableData(state)
+            let newItems = oldState.playlistItems.find(item => item.playlistId === playlistId)
+
+            if(!newItems.nextPageToken) return
+
+            const  playlistItem = await getPlaylistItems(playlistId,newItems.nextPageToken)  
+            newItems = {
+                ...newItems,
                 ...playlistItem,
-                items:[...oldItems.items,...playlistItem.items]                
-            }     
-            console.log(newState)     
-          setState(newState)
-            setLoading(false)
+                items:[...newItems.items,...playlistItem.items]                
+            } 
+            console.log('oldState:' , oldState);    
+            console.log('newItems:' , newItems)
+          setState(oldState)
         }catch(err){
-            setLoading(false)
             setError(err.message)
+        }finally{
+            setLoading(false)
         }
     }
 

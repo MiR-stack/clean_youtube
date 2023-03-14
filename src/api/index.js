@@ -6,7 +6,7 @@ const url='https://www.googleapis.com/youtube/v3'
 
 
 export const getPlaylistItems =async (playlistId,nextPageToken='',prevPageToken='',maxResults=10)=>{
-const {data} = await axios.get(`${url}/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=${maxResults}&key=${key}&nextpageToken=${nextPageToken}&prevPageToken=${prevPageToken}`)
+const {data} = await axios.get(`${url}/playlistItems?part=snippet&playlistId=${playlistId}&pageToken=${nextPageToken||prevPageToken}&maxResults=${maxResults}&key=${key}`)
 return data
 
 }
