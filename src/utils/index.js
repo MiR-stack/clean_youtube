@@ -5,7 +5,6 @@
  */
 
 export const getValidId = (id) =>{
-
     if(id.startsWith('PL')) return id
 
     if(!id.includes('list')) return console.log('invalid id or url')

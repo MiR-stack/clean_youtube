@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getImmutableData, getValidId } from "../utils"
-import {getPlaylist,getPlaylistItems} from '../api/index'
+import {getPlaylistInfo,getPlaylistItems} from '../api/index'
 import storage from '../storage/index'
 
 const usePlaylist = () =>{
@@ -59,6 +59,7 @@ const usePlaylist = () =>{
  */
     const addPlaylistInfo = async (playlistId,playlistType='playlists') =>{
 
+        // check id validation
         playlistId = getValidId(playlistId)
 
         if(!playlistId) return setError('inavalid id or url')
@@ -76,7 +77,7 @@ const usePlaylist = () =>{
     }
 
     if(!newPlaylistInfo){
-      newPlaylistInfo = await getPlaylist(playlistId)
+      newPlaylistInfo = await getPlaylistInfo(playlistId)
       setState(prev =>{
          return {...prev, playlistInfo:{...prev.playlistInfo,playlists:[...prev.playlistInfo[playlistType],newPlaylistInfo]}  }
      })

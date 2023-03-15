@@ -2,8 +2,11 @@ import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import { FormControl,Button,Input,Box} from '@mui/material'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addPlaylistInfo } from '../../store/playlistsInfo'
 
-const NavModal = ({handleClose,open,handleId})=>{
+
+const NavModal = ({handleClose,open})=>{
 
     const style ={
         position:'absolute',
@@ -12,15 +15,17 @@ const NavModal = ({handleClose,open,handleId})=>{
         transform:'translate(-50%,-50%)',
         background:'white',
         boxShadow:24,
-        padding:'20px'
+        padding:'20px',
+        borderRadius:'10px'
     }
 
     const [url,setUrl] = useState('')
 
+    const dispatch = useDispatch()
+
     const handleClick =()=>{
         if(!url) return
-
-        handleId(url)
+        dispatch(addPlaylistInfo(url))
         handleClose()
     }
 

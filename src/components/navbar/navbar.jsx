@@ -9,6 +9,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import Box from '@mui/material/Box'
 import NavModal from './modal'
 import { useState } from 'react'
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 const Navbar = ({handleId}) =>{
 
@@ -24,7 +25,11 @@ const Navbar = ({handleId}) =>{
     return <AppBar position='fixed' color='inherit'>
         <Container maxWidth='lg'>
             <Toolbar>
-                <Typography variant='h6' component='a' href='/' sx={{color:'black',textDecoration:'none'}}> Clean Youtube</Typography>
+                <Box component='a' href='/' sx={{color:'black',textDecoration:'none', display:'flex' ,alignItems:'center'}} >
+                <YouTubeIcon sx={{mr:1, display:{xs:'none',sm:'flex'} }} />
+                <Typography variant='h6' > Clean Youtube</Typography>
+                </Box>
+                
                 <Box sx={{flexGrow:1}} />
                 <Button variant='contained' color='primary' sx={{textTransform:'capitalize'}} onClick={handleOpen} >add playlist</Button>
                 <NavModal open={open} handleClose={handleClose} handleId={handleId} />

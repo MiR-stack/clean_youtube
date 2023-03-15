@@ -1,12 +1,13 @@
-const key = 'clean_youtube_by_habib'
+export const PLAYLIST_INFO = 'playlistInfo'
+export const PLAYLIST_ITEMS = 'playlistItems'
 
 
 class Storage{
-    setData(value){
+    setData(key,value){
         const json = JSON.stringify(value)
         localStorage.setItem(key,json)
     }
-    getData(){
+    getData(key){
        return JSON.parse(localStorage.getItem(key))
     } 
 }

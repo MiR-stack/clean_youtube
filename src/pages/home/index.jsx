@@ -1,9 +1,9 @@
 import { Container } from "@mui/material"
 import Section from './section'
 
-const Home = ({playlistInfo}) =>{
+const Home = () =>{
     return <Container>
-        <Section title='playlists' items={playlistInfo.playlists} />
+        <Section />
     </Container>
 }
 export default Home
