@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPlaylistItems } from "../api";
 import { PLAYLIST_ITEMS } from "../storage";
 import storage from "../storage";
+import { getImmutableData } from "../utils";
 
 const addPlaylistItems = createAsyncThunk(
   "playlistItems",
@@ -48,7 +49,6 @@ const playlistItems = createSlice({
   reducers: {
     removePlaylistItems: (state, action) => {
       if (!isExist(state.items, action.payload)) {
-        state.error = "playlist items doesn't exist";
         return;
       }
       state.items = state.items.filter(
@@ -81,7 +81,7 @@ const playlistItems = createSlice({
     // handle successfull requiest
     builder.addCase(loadMore.fulfilled, (state, action) => {
       // unmutable state
-      const oldState = JSON.parse(JSON.stringify(state.items));
+      const oldState = getImmutableData(state.items)
 
       // find playlist we need to load  more items
       let playlistItems = oldState.find(
