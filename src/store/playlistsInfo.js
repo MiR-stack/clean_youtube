@@ -19,6 +19,9 @@ const addPlaylistInfo = createAsyncThunk(
     );
     if (isExist) throw Error("playlist already exist");
 
+    if (state.playlistsInfo.info.length >= 8)
+      throw Error("maximum playlist added");
+
     return getPlaylistInfo(playlistId);
   }
 );
@@ -77,8 +80,8 @@ const playlistInfo = createSlice({
     },
 
     addRecent: (state, action) => {
+      state.recent = state.recent.filter((id) => id !== action.payload);
       state.recent.unshift(action.payload);
-
       if (state.recent.length > 5) state.recent.length = 5;
 
       state.error = "";
@@ -91,9 +94,9 @@ const playlistInfo = createSlice({
       state.recent = removeElement(state.recent, action.payload);
       state.error = "";
     },
-    removeError:(state) =>{
-      state.error = ''
-    }
+    removeError: (state) => {
+      state.error = "";
+    },
   },
 
   extraReducers: (builder) => {
@@ -124,7 +127,7 @@ export const {
   removeFavourite,
   addRecent,
   removeRecent,
-  removeError
+  removeError,
 } = playlistInfo.actions;
 export default playlistInfo.reducer;
 

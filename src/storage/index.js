@@ -1,6 +1,6 @@
 export const PLAYLIST_INFO = 'playlistInfo'
 export const PLAYLIST_ITEMS = 'playlistItems'
-
+export const CURRENT_PLAYLIST = 'currentPlaylist'
 
 class Storage{
     setData(key,value){

@@ -18,8 +18,7 @@ import {
 import { CardActions, Stack, Button, Tooltip, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import { playlistId as id } from "../../../store/player";
-import {useNavigate} from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 
 const Actions = ({ playlistId }) => {
   const dispatch = useDispatch();
@@ -28,8 +27,6 @@ const Actions = ({ playlistId }) => {
   const favourite = useSelector((state) => state.playlistsInfo.favorite);
   const isFavourite = isExist(favourite, playlistId);
 
-
-
   const deletePlaylist = () => {
     dispatch(removePlaylistInfo(playlistId));
     dispatch(removePlaylistItems(playlistId));
@@ -37,13 +34,13 @@ const Actions = ({ playlistId }) => {
     dispatch(removeRecent(playlistId));
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlePlayer = () => {
     dispatch(addPlaylistItems(playlistId));
     dispatch(addRecent(playlistId));
-    dispatch(id(playlistId))
-    navigate('/player')
+    dispatch(id(playlistId));
+    navigate("/player");
   };
 
   return (

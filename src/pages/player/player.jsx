@@ -1,19 +1,31 @@
-import { useSelect } from "@mui/base"
-import { Box } from "@mui/system"
-import React from "react"
-import ReactPlayer from "react-player/youtube"
+import { Box } from "@mui/system";
+import React from "react";
+import ReactPlayer from "react-player/youtube";
+import { useSelector } from "react-redux";
 
 function VideoPlayer() {
+  const {currentVideoId,loading} = useSelector((state) => state.player);
 
-  const videoId = useSelect(state => state.player)
-
-  console.log(videoId)
 
   return (
-    <Box sx={{width:{xs:'100%',md:'80%',lg:'60%'},height:{sx:'200px',md:'300px', lg:'400px'}}}>
-        <ReactPlayer width={'100%'} height={'100%'} url={`https://www.youtube.com/watch?v=${videoId}`} controls={true} />
+    <Box
+      sx={{
+        width: { xs: "100%", md: "80%", lg: "80%" },
+        height: { sx: "200px", md: "300px", lg: "400px" },
+      }}
+    >
+      {loading?<div>loading</div> : currentVideoId && (
+        <ReactPlayer
+          width={"100%"}
+          height={"100%"}
+          url={`https://www.youtube.com/watch?v=${currentVideoId}
+          `}
+          controls={true}
+        />
+      )}
     </Box>
-  )
+
+  );
 }
 
-export default VideoPlayer
+export default VideoPlayer;

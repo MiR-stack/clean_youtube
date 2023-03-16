@@ -27,7 +27,7 @@ const Home = () => {
         <Section title="Favourite" items={favouriteItems} />
       )}
       {recent.length > 0 && <Section title="Recent" items={recentItems} />}
-      {info.length > 0 && <Section title="Favourite" items={info} />}
+      {info.length > 0 && <Section title="Playlists" items={info} />}
     </Container>
   );
 };

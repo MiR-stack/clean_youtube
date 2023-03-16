@@ -1,15 +1,43 @@
-import { Container } from "@mui/material"
-import VideoPlayer from "./player"
-import Sidebar from "./sidebar/sidebar"
+import { Container } from "@mui/material";
+import VideoPlayer from "./player";
+import Sidebar from "./sidebar/sidebar";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPlaylist, playVideo } from "../../store/player";
+import storage, { CURRENT_PLAYLIST } from "../../storage";
+import { Stack } from "@mui/system";
+
+const Player = () => {
+  const currentPlaylist = useSelector((state) => state.player);
+  const { playlistId, currentVideoId } = currentPlaylist;
+  const playlists = useSelector((state) => state.playlistItems.items);
+  const playlist = playlists.find(
+    (playlist) => playlist.playlistId === playlistId
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (playlist) {
+      dispatch(addPlaylist(playlist));
+      dispatch(playVideo());
+    }
+  }, [playlist]);
 
 
-const Player = () =>{
-    return(
-        <Container>
-          <VideoPlayer/>
-          <Sidebar />
-        </Container>
-    )
-}
+  // save any changes into local storage
+  useEffect(() => {
+    storage.setData(CURRENT_PLAYLIST, currentPlaylist);
+  }, [currentPlaylist]);
 
-export default Player
+
+  return (
+    <Container sx={{mt:5}}>
+      <Stack gap={3} direction="row">
+        <VideoPlayer />
+        <Sidebar />
+      </Stack>
+    </Container>
+  );
+};
+
+export default Player;
