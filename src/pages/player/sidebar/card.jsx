@@ -2,36 +2,37 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { playVideo } from "../../../store/player";
 
-const ItemCard = ({ title, channelTitle, thumbnail, videoId }) => {
+const ItemCard = ({ item }) => {
   const dispatch = useDispatch();
-  const currentVideoId = useSelector((state) => state.player.currentVideoId);
+  const {
+    contentDetails: { videoId: id },
+  } = useSelector((state) => state.player.currentItem);
 
+  console.log(id);
+  const { title, channelTitle, thumbnails } = item.snippet;
   return (
     <Card
       sx={{
         display: "flex",
         alignItems: "center",
         p: 1,
-        bgcolor: videoId === currentVideoId ? "#bdbdbd" : "",
+        bgcolor: item.contentDetails.videoId === id ? "#bdbdbd" : "",
         cursor: "pointer",
-        m:1
+        m: 1,
       }}
-
-      id={videoId}
-      
       onClick={() => {
-        dispatch(playVideo(videoId));
+        dispatch(playVideo(item));
       }}
     >
       <CardMedia
         component="img"
         sx={{ height: "80px", width: "100px" }}
-        image={thumbnail.url}
+        image={thumbnails.standard.url}
         alt={title}
       />
       <CardContent>
         <Typography variant="subtitle2" component="h3">
-          {`${title.length > 40 ? title.substr(0,40) + "..." : title}`}{" "}
+          {`${title.length > 40 ? title.substr(0, 40) + "..." : title}`}{" "}
         </Typography>
         <Typography variant="caption">{channelTitle} </Typography>
       </CardContent>

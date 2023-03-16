@@ -9,33 +9,39 @@ import { Stack } from "@mui/system";
 
 const Player = () => {
   const currentPlaylist = useSelector((state) => state.player);
-  const { playlistId, currentVideoId } = currentPlaylist;
+  const { playlistId,currentItem } = currentPlaylist;
   const playlists = useSelector((state) => state.playlistItems.items);
   const playlist = playlists.find(
     (playlist) => playlist.playlistId === playlistId
   );
+  
+  
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (playlist) {
       dispatch(addPlaylist(playlist));
       dispatch(playVideo());
+      console.log(false)
     }
-  }, [playlist]);
+    console.log(true)
 
+  }, [playlist]);
+  console.log('playlisit',playlist)
 
   // save any changes into local storage
   useEffect(() => {
     storage.setData(CURRENT_PLAYLIST, currentPlaylist);
   }, [currentPlaylist]);
 
-
   return (
-    <Container sx={{mt:5}}>
-      <Stack gap={3} direction="row">
-        <VideoPlayer />
-        <Sidebar />
-      </Stack>
+    <Container sx={{ mt: 5 }}>
+      {!(playlists.length >0 && playlist &&currentItem.id)?<div>loading...</div>  : (
+        <Stack gap={3} direction="row">
+          <VideoPlayer />
+          <Sidebar />
+        </Stack>
+      )}
     </Container>
   );
 };

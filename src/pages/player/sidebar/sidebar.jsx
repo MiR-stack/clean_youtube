@@ -8,11 +8,8 @@ import ItemCard from "./card";
 const Sidebar = () => {
   const playlist = useSelector((state) => state.player.playlist);
 
-  console.log(playlist.items);
-
   const [playlistItems, setPlaylistItems] = useState();
 
-  console.log(playlistItems);
 
   useEffect(() => {
     setPlaylistItems(playlist.items.slice(0, 5));
@@ -46,10 +43,7 @@ const Sidebar = () => {
         {playlistItems?.map((item) => (
           <ItemCard
             key={item.id}
-            title={item.snippet.title}
-            channelTitle={item.snippet.channelTitle}
-            thumbnail={item.snippet.thumbnails.standard}
-            videoId={item.contentDetails.videoId}
+           item={item}
           />
         ))}
       </Box>

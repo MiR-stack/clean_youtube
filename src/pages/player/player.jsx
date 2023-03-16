@@ -4,8 +4,11 @@ import ReactPlayer from "react-player/youtube";
 import { useSelector } from "react-redux";
 
 function VideoPlayer() {
-  const {currentVideoId,loading} = useSelector((state) => state.player);
+  const {currentItem} = useSelector((state) => state.player);
 
+  console.log(currentItem)
+
+  const videoId = currentItem.contentDetails.videoId
 
   return (
     <Box
@@ -14,15 +17,13 @@ function VideoPlayer() {
         height: { sx: "200px", md: "300px", lg: "400px" },
       }}
     >
-      {loading?<div>loading</div> : currentVideoId && (
-        <ReactPlayer
+      {videoId && <ReactPlayer
           width={"100%"}
           height={"100%"}
-          url={`https://www.youtube.com/watch?v=${currentVideoId}
+          url={`https://www.youtube.com/watch?v=${videoId}
           `}
           controls={true}
-        />
-      )}
+        />}
     </Box>
 
   );
