@@ -8,14 +8,22 @@ import ItemCard from "./card";
 const Sidebar = () => {
   const playlist = useSelector((state) => state.player.playlist);
 
-  const [playlistItems, setPlaylistItems] = useState();
-
+  const [playlistItems, setPlaylistItems] = useState(playlist.items.slice(0, 5));
 
   useEffect(() => {
-    setPlaylistItems(playlist.items.slice(0, 5));
+    if (playlistItems.items?.length <= 5) {
+      setPlaylistItems(playlist.items.slice(0, 5));
+    }
+
   }, [playlist]);
 
+  console.log('playlistITems', playlist)
+
   const dispatch = useDispatch();
+  /**
+   * load more items based on next page token
+   * @param {Number} item
+   */
   const handleLoad = (item) => {
     let count = playlistItems.length;
     count += item;
@@ -24,8 +32,6 @@ const Sidebar = () => {
       handleLoad(item);
     }
     setPlaylistItems(playlist.items.slice(0, count));
-
-    console.log(count);
   };
 
   return (
@@ -36,15 +42,12 @@ const Sidebar = () => {
         alignItems: "center",
         bgcolor: "#eeeeee",
         borderRadius: "10px",
-        width:'40%'
+        width: "40%",
       }}
     >
       <Box sx={{ height: "70vh", overflow: "auto" }}>
         {playlistItems?.map((item) => (
-          <ItemCard
-            key={item.id}
-           item={item}
-          />
+          <ItemCard key={item.id} item={item} />
         ))}
       </Box>
       {playlist.nextPageToken && (

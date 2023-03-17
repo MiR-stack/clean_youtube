@@ -22,13 +22,9 @@ const Player = () => {
     if (playlist) {
       dispatch(addPlaylist(playlist));
       dispatch(playVideo());
-      console.log(false)
     }
-    console.log(true)
 
   }, [playlist]);
-  console.log('playlisit',playlist)
-
   // save any changes into local storage
   useEffect(() => {
     storage.setData(CURRENT_PLAYLIST, currentPlaylist);
