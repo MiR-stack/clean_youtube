@@ -8,18 +8,21 @@ import ItemCard from "./card";
 const Sidebar = () => {
   const playlist = useSelector((state) => state.player.playlist);
 
-  const [playlistItems, setPlaylistItems] = useState(playlist.items.slice(0, 5));
+  const [playlistItems, setPlaylistItems] = useState(
+    playlist.items.slice(0, 5)
+  );
 
   useEffect(() => {
-    if (playlistItems.items?.length <= 5) {
+    if (playlistItems.length < 5) {
       setPlaylistItems(playlist.items.slice(0, 5));
     }
-
   }, [playlist]);
 
-  console.log('playlistITems', playlist)
-
   const dispatch = useDispatch();
+  console.log("nextToken", playlist.nextPageToken);
+
+  console.log(playlistItems.length, playlist.items.length);
+
   /**
    * load more items based on next page token
    * @param {Number} item
@@ -27,9 +30,12 @@ const Sidebar = () => {
   const handleLoad = (item) => {
     let count = playlistItems.length;
     count += item;
-    if (playlist.items.length <= count) {
+    console.log(playlist.items.length, count);
+    if (playlist.items.length <= count && playlist.nextPageToken) {
+      console.log("called");
       dispatch(loadMore(playlist.playlistId));
-      handleLoad(item);
+      setPlaylistItems(playlist.items.slice(0, count));
+      return;
     }
     setPlaylistItems(playlist.items.slice(0, count));
   };
@@ -50,7 +56,7 @@ const Sidebar = () => {
           <ItemCard key={item.id} item={item} />
         ))}
       </Box>
-      {playlist.nextPageToken && (
+      {playlistItems.length < playlist.items.length && (
         <Button
           sx={{ m: 1 }}
           onClick={() => {

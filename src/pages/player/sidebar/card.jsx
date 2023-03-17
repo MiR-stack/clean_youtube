@@ -8,7 +8,6 @@ const ItemCard = ({ item }) => {
     contentDetails: { videoId: id },
   } = useSelector((state) => state.player.currentItem);
 
-  console.log(id);
   const { title, channelTitle, thumbnails } = item.snippet;
   return (
     <Card

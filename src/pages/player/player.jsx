@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 function VideoPlayer() {
   const {currentItem} = useSelector((state) => state.player);
 
-  console.log(currentItem)
-
   const videoId = currentItem.contentDetails.videoId
 
   return (
