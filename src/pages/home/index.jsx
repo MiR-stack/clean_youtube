@@ -13,6 +13,7 @@ const Empty = () => {
           left: "50%",
           transform: "translate(-50%,-50%)",
           textTransform: "capitalize",
+          width:{xs:'300px',sm:'unset'}
         }}
       >
         <Typography variant="h4">
