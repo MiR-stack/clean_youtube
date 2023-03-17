@@ -15,7 +15,7 @@ const Empty = () => {
           textTransform: "capitalize",
         }}
       >
-        <Typography variant="h3">
+        <Typography variant="h4">
           {" "}
           look like you didn't added any playlist yet!
         </Typography>

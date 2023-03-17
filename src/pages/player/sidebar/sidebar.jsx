@@ -13,15 +13,12 @@ const Sidebar = () => {
   );
 
   useEffect(() => {
-    if (playlistItems.length < 5) {
+    if (playlistItems.length < 6) {
       setPlaylistItems(playlist.items.slice(0, 5));
     }
   }, [playlist]);
 
   const dispatch = useDispatch();
-  console.log("nextToken", playlist.nextPageToken);
-
-  console.log(playlistItems.length, playlist.items.length);
 
   /**
    * load more items based on next page token
