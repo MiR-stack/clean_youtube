@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Backdrop,CircularProgress, Container } from "@mui/material";
 import VideoPlayer from "./player";
 import Sidebar from "./sidebar/sidebar";
 import { useEffect, useState } from "react";
@@ -28,13 +28,22 @@ const Player = () => {
     storage.setData(CURRENT_PLAYLIST, currentPlaylist);
   }, [currentPlaylist]);
 
+  // handle Backdrop
   return (
     <Container sx={{ mt: 5 }}>
       {!(playlists.length > 0 && playlist && currentItem.id) ? (
-        <div>loading...</div>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
-        <Stack gap={3} sx={{alignItems:'flex-start',flexDirection:{md:'row'}}}>
-          <Stack gap={2} sx={{width:{xs:'100%',md:'55%',lg:'70%'}}}>
+        <Stack
+          gap={3}
+          sx={{ alignItems: "flex-start", flexDirection: { md: "row" } }}
+        >
+          <Stack gap={2} sx={{ width: { xs: "100%", md: "55%", lg: "70%" } }}>
             <VideoPlayer />
             <Content />
           </Stack>
