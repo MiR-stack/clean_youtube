@@ -16,7 +16,8 @@ const NavModal = ({handleClose,open})=>{
         background:'white',
         boxShadow:24,
         padding:'20px',
-        borderRadius:'10px'
+        borderRadius:'10px',
+        width:{xs:'290px',sm:'unset'}
     }
 
     const [url,setUrl] = useState('')
@@ -30,7 +31,7 @@ const NavModal = ({handleClose,open})=>{
     }
 
     return <Modal open={open} onClose={handleClose}>
-        <Box style={style}>
+        <Box sx={style}>
             <Typography variant='h5' textAlign='center'>Enter playlist id or url</Typography>
             <FormControl ms={3}>
                 <Box sx={{diplay:'flex',alignItems:'center',mt:2}}>
