@@ -48,10 +48,10 @@ const Sidebar = () => {
         alignItems: "center",
         bgcolor: "#eeeeee",
         borderRadius: "10px",
-        width: "40%",
+        width: {sm:'100%',md:'40%'},
       }}
     >
-      <Box sx={{ height: "70vh", overflow: "auto" }}>
+      <Box sx={{ height: "70vh",width:'100%',  overflow: "auto" }}>
         {playlistItems?.map((item) => (
           <ItemCard key={item.id} item={item} />
         ))}
