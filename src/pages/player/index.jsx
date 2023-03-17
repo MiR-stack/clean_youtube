@@ -23,12 +23,12 @@ const Player = () => {
       dispatch(playVideo());
     }
   }, [playlist]);
+  
   // save any changes into local storage
   useEffect(() => {
     storage.setData(CURRENT_PLAYLIST, currentPlaylist);
   }, [currentPlaylist]);
 
-  // handle Backdrop
   return (
     <Container sx={{ mt: 5 }}>
       {!(playlists.length > 0 && playlist && currentItem.id) ? (
